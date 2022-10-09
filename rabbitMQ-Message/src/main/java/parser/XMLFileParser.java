@@ -20,7 +20,7 @@ public class XMLFileParser extends FileParser {
     }
 
     @Override
-    public void parseFile() {
+    public void parseFile(String fileName) {
         File folder = new File(getFilePath("input"));
         File[] files = folder.listFiles();
 
@@ -29,21 +29,31 @@ public class XMLFileParser extends FileParser {
             return;
         }
 
-        for (File file : files) {
-            if (file.isFile()) {
-                String fileName = file.getName();
-                printLogInfo("The ".concat(fileName).concat(" was processed"));
+//        for (File file : files) {
+//            if (file.isFile()) {
+//                String fileName = file.getName();
+//                printLogInfo("The ".concat(fileName).concat(" was processed"));
+//
+//                File inputFile = new File(getFilePath("input/")
+//                        .concat(fileName));
+//                Stocks stocks = JAXB.unmarshal(inputFile, Stocks.class);
+//                appendStockToList(stocks);
+//            }
+//        }
 
-                File inputFile = new File(getFilePath("input/").concat(fileName));
-                Stocks stocks = JAXB.unmarshal(inputFile, Stocks.class);
-                appendStockToList(stocks);
-            }
-        }
+        printLogInfo("The XML"
+                .concat(fileName)
+                .concat(" was processed"));
+
+        File inputFile = new File(getFilePath("input/")
+                .concat(fileName));
+        Stocks stocks = JAXB.unmarshal(inputFile, Stocks.class);
+        appendStockToList(stocks);
     }
 
     @Override
     protected String getFilePath(String typeOfFile) {
-        return "src/main/resources/" + typeOfFile;
+        return "src/main/resources/".concat(typeOfFile);
     }
 
     public List<Stock> getStockList() {
