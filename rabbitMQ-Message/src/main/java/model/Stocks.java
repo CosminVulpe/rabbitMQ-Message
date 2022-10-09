@@ -19,7 +19,6 @@ public class Stocks {
     }
 
 
-
     public void setProductList(List<Stock> stockList) {
         this.stockList = stockList;
     }
