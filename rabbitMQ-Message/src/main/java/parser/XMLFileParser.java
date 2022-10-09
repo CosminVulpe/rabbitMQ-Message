@@ -5,10 +5,15 @@ import model.Stocks;
 
 import javax.xml.bind.JAXB;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class XMLFileParser extends FileParser {
 
@@ -29,18 +34,6 @@ public class XMLFileParser extends FileParser {
             return;
         }
 
-//        for (File file : files) {
-//            if (file.isFile()) {
-//                String fileName = file.getName();
-//                printLogInfo("The ".concat(fileName).concat(" was processed"));
-//
-//                File inputFile = new File(getFilePath("input/")
-//                        .concat(fileName));
-//                Stocks stocks = JAXB.unmarshal(inputFile, Stocks.class);
-//                appendStockToList(stocks);
-//            }
-//        }
-
         printLogInfo("The XML"
                 .concat(fileName)
                 .concat(" was processed"));
@@ -48,7 +41,28 @@ public class XMLFileParser extends FileParser {
         File inputFile = new File(getFilePath("input/")
                 .concat(fileName));
         Stocks stocks = JAXB.unmarshal(inputFile, Stocks.class);
+
         appendStockToList(stocks);
+        moveFolder(fileName);
+    }
+
+
+    private void moveFolder(String fileName) {
+        File destinationFile = new File("src/main/resources/processed/"
+                .concat(fileName));
+
+        File fromFile = new File(getFilePath("input/")
+                .concat(fileName));
+
+        try {
+            Files.copy(Paths.get(fromFile.toURI())
+                    , Paths.get(destinationFile.toURI()), REPLACE_EXISTING);
+
+            Files.move(Paths.get(fromFile.toURI())
+                    , Paths.get(destinationFile.toURI()), REPLACE_EXISTING);
+        } catch (IOException e) {
+            printLogWarn(e.getMessage());
+        }
     }
 
     @Override
