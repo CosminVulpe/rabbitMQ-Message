@@ -16,7 +16,7 @@ import static enums.StatusOrderType.RESERVED;
 public class Producer {
 
 
-    private JSONFileParser jsonFileParser;
+    private final JSONFileParser jsonFileParser;
 
     public Producer(JSONFileParser jsonFileParser) {
         this.jsonFileParser=jsonFileParser;
