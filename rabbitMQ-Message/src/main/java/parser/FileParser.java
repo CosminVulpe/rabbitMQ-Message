@@ -10,7 +10,7 @@ public abstract class FileParser {
         this.LOG = LOG;
     }
 
-    abstract void parseFile();
+    public abstract void parseFile(String fileName);
 
     protected abstract String getFilePath(String typeOfFile);
 
