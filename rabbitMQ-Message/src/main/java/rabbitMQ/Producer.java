@@ -15,7 +15,6 @@ import static enums.StatusOrderType.RESERVED;
 
 public class Producer {
 
-
     private final JSONFileParser jsonFileParser;
 
     public Producer(JSONFileParser jsonFileParser) {
@@ -42,11 +41,6 @@ public class Producer {
                                         ? "Not enough funds!" : "")
                         )
                         .build();
-
-                System.out.println(
-                        jsonObjectBuilder.toString()
-                );
-
                 jsonObjectList.add(jsonObjectBuilder.toString());
                 break;
             }

@@ -58,8 +58,6 @@ public class Order {
         return productId;
     }
 
-
-
     public void setProductId(Long productId) {
         this.productId = productId;
     }
