@@ -27,19 +27,23 @@ public class Consumer implements Runnable {
         Channel channel = connection.createChannel();
         channel.queueDeclare(endPoint, true, false, false, null);
 
-        DeliverCallback deliverCallback = (s, delivery) -> {
+        channel.basicConsume(endPoint, true, deliverMessages(), (CancelCallback) null);
+    }
+
+
+    public DeliverCallback deliverMessages() {
+
+        return (s, delivery) -> {
             String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
 
             FileWriter fileWriter = new FileWriter("src/main/resources/orders/"
                     .concat(endPoint)
                     .concat(".json"));
-            fileWriter.write(message);
 
+            fileWriter.write(message);
             fileWriter.flush();
             fileWriter.close();
         };
-
-        channel.basicConsume(endPoint, true, deliverCallback, (CancelCallback) null);
     }
 
     @Override
