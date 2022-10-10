@@ -1,23 +1,17 @@
 package parser;
 
 import model.Order;
-import model.Stock;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 
-import static enums.StatusOrderType.INSUFFICIENT_STOCKS;
-import static enums.StatusOrderType.RESERVED;
 
 public class JSONFileParser extends FileParser {
 
@@ -25,7 +19,6 @@ public class JSONFileParser extends FileParser {
     private final XMLFileParser xmlFileParser;
 
     private Order order;
-
 
     public JSONFileParser(XMLFileParser xmlFileParser) {
         super(Logger.getLogger(JSONFileParser.class.getName()));
