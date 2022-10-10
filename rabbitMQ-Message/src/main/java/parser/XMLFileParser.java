@@ -43,22 +43,22 @@ public class XMLFileParser extends FileParser {
         Stocks stocks = JAXB.unmarshal(inputFile, Stocks.class);
 
         appendStockToList(stocks);
-        moveFolder(fileName);
+        moveFolders(fileName);
     }
 
 
-    private void moveFolder(String fileName) {
+    private void moveFolders(String fileName) {
         File destinationFile = new File("src/main/resources/processed/"
                 .concat(fileName));
 
-        File fromFile = new File(getFilePath("input/")
+        File originFile = new File(getFilePath("input/")
                 .concat(fileName));
 
         try {
-            Files.copy(Paths.get(fromFile.toURI())
+            Files.copy(Paths.get(originFile.toURI())
                     , Paths.get(destinationFile.toURI()), REPLACE_EXISTING);
 
-            Files.move(Paths.get(fromFile.toURI())
+            Files.move(Paths.get(originFile.toURI())
                     , Paths.get(destinationFile.toURI()), REPLACE_EXISTING);
         } catch (IOException e) {
             printLogWarn(e.getMessage());

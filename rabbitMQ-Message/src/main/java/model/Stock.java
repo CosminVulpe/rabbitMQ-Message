@@ -27,9 +27,6 @@ public class Stock {
         return quantity;
     }
 
-    public void setStock(Long quantity) {
-        this.quantity = quantity;
-    }
 
     @Override
     public String toString() {
